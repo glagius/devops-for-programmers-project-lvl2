@@ -1,0 +1,21 @@
+- hosts: webservers
+  become: true
+  vars:
+    pip_install_packages:
+      - name: docker
+
+  roles:
+    - geerlingguy.pip
+
+  tasks:
+    - name: Pull Redmine image
+      docker_image:
+        name: redmine:4
+        source: pull
+
+    - name: Setup Redmine server
+      docker_container:
+        name: redmine
+        image: redmine:4
+        detach: yes
+        published_ports: 80:3000
