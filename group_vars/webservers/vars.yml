@@ -1,0 +1,4 @@
+DB_HOST: db-postgresql-ams3-83558-do-user-9540486-0.b.db.ondigitalocean.com
+DB_USERNAME: doadmin
+DB_PORT: 25060
+DB_NAME: defaultdb
