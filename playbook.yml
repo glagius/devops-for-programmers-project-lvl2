@@ -3,9 +3,32 @@
   vars:
     pip_install_packages:
       - name: docker
+    datadog_api_key: " {{ DATADOG_API_KEY }}"
+    datadog_agent_version: "7.16.0"
+    datadog_checks:
+      process:
+        init_config:
+          instances:
+            - name: ssh
+              search_string: ['ssh', 'sshd' ]
+            - name: syslog
+              search_string: ['rsyslog' ]
+              cpu_check_interval: 0.2
+              exact_match: true
+              ignore_denied_access: true
+      http_check:
+        init_config:
+          instances:
+            - name: Laconica club
+              url: https://localhost:3000
+              timeout: 5
+              method: GET
+    network_config:
+      enabled: true
 
   roles:
     - geerlingguy.pip
+    - { role: datadog.datadog, become: yes }
 
   tasks:
     - name: Pull Redmine image
